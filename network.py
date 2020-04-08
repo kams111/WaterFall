@@ -8,15 +8,19 @@ class Network:
         self.server = "192.168.1.13"
         self.port = 5555
         self.addr = (self.server, self.port)
-        self.p = self.connect()
+        self.connect()
 
-    def getP(self):
-        return self.p
+    def getP(self, data):
+        try:
+            self.client.send(pickle.dumps(data))
+        except:
+            print("no nie!")
+        return pickle.loads(self.client.recv(2048))
 
     def connect(self):
         try:
             self.client.connect(self.addr)
-            return pickle.loads(self.client.recv(2048))
+
         except:
             pass
 
