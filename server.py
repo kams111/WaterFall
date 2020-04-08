@@ -20,6 +20,7 @@ print("Waiting for connection, Server Started! Max number of players: " + str(MA
 
 deck = init_card_deck()
 players = []
+
 pool_of_players = []
 for i in range(MAX_PLAYERS_NUMBER):
     pool_of_players.append(i)
@@ -31,7 +32,7 @@ currentPlayer = 0
 def threaded_client(conn, player):
     global deck
     conn.send(pickle.dumps(players[player]))
-    reply = ""
+    msg = ""
     while True:
         try:
             data = pickle.loads(conn.recv(2048))
@@ -43,13 +44,12 @@ def threaded_client(conn, player):
             else:
                 if players[player].isTakeCard():
                     deck.pop(-1)
-                    print("Zostało jeszcze: {} kart do odkrycia".format(len(deck)-1))
+                    msg = ("Zostało jeszcze: {} kart do odkrycia".format(len(deck)-1))
                     if len(deck) == 0:
                         deck = init_card_deck()
-                reply = players.copy()
-                reply.remove(players[player])
-                data_to_send = (players, deck)
+                data_to_send = (players, deck, msg)
             conn.send(pickle.dumps(data_to_send))
+            msg = ""
         except:
             break
     global currentPlayer
@@ -66,16 +66,17 @@ def runSerwer():
         if currentPlayer < MAX_PLAYERS_NUMBER:
             conn, addr = s.accept()
             print("Connected to: ", addr)
-            players.append(Player(PLAYER_START[pool_of_players[0]][0], PLAYER_START[pool_of_players[0]][1], DEFAULT_R,
-                                  PLAYER_START[pool_of_players[0]][2]))
+            print("Player {} just joined".format(currentPlayer))
+            players.append(Player(PLAYER_START[0][0], PLAYER_START[0][1], PLAYER_START[0][2]))
             start_new_thread(threaded_client, (conn, pool_of_players[0]))
             pool_of_players.remove(pool_of_players[0])
-            currentPlayer += 1
+            currentPlayer = pool_of_players[0]
 
 
 start_new_thread(runSerwer, ())
 
 while True:
     x = input('Czekam na komende: ')
-    print(x)
+    if x == "new deck":
+        deck = init_card_deck()
 
