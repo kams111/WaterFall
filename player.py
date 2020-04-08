@@ -1,6 +1,6 @@
 import pygame
 import time
-from src.constants import *
+from constants import *
 
 
 class Player():

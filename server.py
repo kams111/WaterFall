@@ -1,9 +1,9 @@
 import socket
-from src.constants import *
-from src.player import Player
+from constants import *
+from player import Player
 import pickle
 from _thread import *
-from src.card import *
+from card import *
 
 server = "192.168.1.13"
 port = 5555

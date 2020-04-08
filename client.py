@@ -1,8 +1,8 @@
 import pygame
-from src.player import Player
-from  src.network import Network
-from src.constants import *
-from src.card import *
+from player import Player
+from  network import Network
+from constants import *
+from card import *
 
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Wódospad XD")
