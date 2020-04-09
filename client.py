@@ -2,23 +2,28 @@ import pygame
 from player import Player
 from network import Network
 from card import *
-from display_window import Display_Window
+from display_window import *
+
+import time
 
 def main():
 
     window = Display_Window()
+    clock = pygame.time.Clock()
 
-    path = "./imgs/characters"
+    path = "./imgs/characters/"
 
-    path += "/ja.jpg"
-    name = "Kams"
+    test = window.selectCharacterWindow()
+    path += test[0]
+    path += ".png"
+    name = test[1]
+
 
     run = True
     n = Network()
     d_t_s = (path, name)
     p = n.getP(d_t_s)
     print(p)
-    clock = pygame.time.Clock()
 
     while run:
         clock.tick(60)

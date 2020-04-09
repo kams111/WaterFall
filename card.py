@@ -16,21 +16,21 @@ class Card():
 def init_card_deck():
     deck = []
     for i in range (13):
-        str = "./imgs/KI{}.png".format(i+1)
+        str = "./imgs/cards/KI{}.png".format(i+1)
         deck.append(Card(str, i*4+1))
-        str = "./imgs/KA{}.png".format(i+1)
+        str = "./imgs/cards/KA{}.png".format(i+1)
         deck.append(Card(str, i*4+2))
-        str = "./imgs/P{}.png".format(i+1)
+        str = "./imgs/cards/P{}.png".format(i+1)
         deck.append(Card(str, i*4+3))
-        str = "./imgs/T{}.png".format(i+1)
+        str = "./imgs/cards/T{}.png".format(i+1)
         deck.append(Card(str, i*4+4))
 
-    deck.append(Card("./imgs/RED_JOKER.png", 53))
-    deck.append(Card("./imgs/BLACK_JOKER.png", 54))
+    deck.append(Card("./imgs/cards/RED_JOKER.png", 53))
+    deck.append(Card("./imgs/cards/BLACK_JOKER.png", 54))
 
     random.shuffle(deck)
 
-    deck.append(Card("./imgs/REVERS.png", 55))
+    deck.append(Card("./imgs/cards/REVERS.png", 55))
 
     return deck
 
