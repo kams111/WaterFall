@@ -26,8 +26,8 @@ class Player():
     def move(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                print("QUIT")
                 pygame.quit()
+                quit()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_c:
                     self.takeCard = True
