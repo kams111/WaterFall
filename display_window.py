@@ -12,11 +12,18 @@ class Display_Window():
         self.window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Wódospad XD")
 
-    def redrawWindow(self, all_players, cards):
+    def redrawWindow(self, all_players, cards, label_msg):
         self.window.fill((0, 255, 0))
         cards[-1].draw(self.window)
         for p in all_players:
             all_players[p].draw(self.window)
+        pygame.draw.polygon(self.window, (255, 215, 0), [(MAP_WIDTH,0), (WINDOW_WIDTH,0), (WINDOW_WIDTH,WINDOW_HEIGHT), (MAP_WIDTH, WINDOW_HEIGHT)])
+        i = 0
+        for l in label_msg:
+            self.window.blit(l[0], (MAP_WIDTH, i*WINDOW_HEIGHT/5))
+            self.window.blit(l[1], (MAP_WIDTH, i*WINDOW_HEIGHT/5+30))
+            i += 1
+
         pygame.display.update()
 
     def selectCharacterWindow(self):
@@ -60,11 +67,16 @@ class Display_Window():
                         last_name = input_last_name.text
                         nick = input_nick.text
                         if name != "" and last_name != "" and nick != "":
+                            name = "./imgs/characters/" + name
                             name += "_"
                             name += last_name
                             name.lower()
-                            ret = (name, nick)
-                            return ret
+                            name += ".png"
+                            try:
+                                pygame.image.load(name)
+                                ret = (name, nick)
+                                return ret
+                            except: pass
                     else:
                         pass
                 for i in input_boxes:
